@@ -1,0 +1,1152 @@
+{% extends "base.html" %}
+
+{% block title %}ASCND // Awaken Your Potential{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     ASCND LANDING PAGE
+========================================================= -->
+
+<div class="ascnd-page">
+
+    <!-- BACKGROUND SYSTEM EFFECTS -->
+    <div class="grid-background"></div>
+    <div class="scanlines"></div>
+    <div class="ambient ambient-cyan"></div>
+    <div class="ambient ambient-purple"></div>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+        <div class="nav-inner">
+
+            <a href="#" class="logo">
+                <span class="logo-bracket">[</span>
+                ASCND
+                <span class="logo-bracket">]</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#system">SYSTEM</a>
+                <a href="#mechanics">MECHANICS</a>
+                <a href="#stats">STATS</a>
+                <a href="#reports">REPORTS</a>
+            </nav>
+
+            <a href="#awakening" class="nav-cta">
+                INITIALIZE
+                <span>↗</span>
+            </a>
+
+            <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="hero section">
+
+            <div class="hero-content reveal">
+
+                <div class="system-badge">
+                    <span class="status-dot"></span>
+                    SYSTEM INITIALIZED
+                    <span class="badge-divider">//</span>
+                    VER 2.0
+                </div>
+
+                <div class="hero-eyebrow">
+                    <span class="line"></span>
+                    REAL LIFE RPG SYSTEM
+                    <span class="line"></span>
+                </div>
+
+                <h1>
+                    AWAKEN YOUR
+                    <span>POTENTIAL.</span>
+                    <br>
+                    LEVEL UP
+                    <span>IN REAL LIFE.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Turn daily habits, workouts, and personal goals into
+                    <strong>XP, stat points, and rank clearances.</strong>
+                    Stop playing as someone else.
+                    <strong>Become the protagonist.</strong>
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="#awakening" class="btn btn-primary">
+                        <span>INITIALIZE SYSTEM</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+
+                    <a href="#mechanics" class="btn btn-secondary">
+                        <span class="play-icon">▶</span>
+                        VIEW SYSTEM MECHANICS
+                    </a>
+
+                </div>
+
+                <div class="hero-meta">
+                    <div>
+                        <span class="meta-label">SYSTEM</span>
+                        <span class="meta-value online">ONLINE</span>
+                    </div>
+
+                    <div>
+                        <span class="meta-label">HUNTERS</span>
+                        <span class="meta-value">12,847+</span>
+                    </div>
+
+                    <div>
+                        <span class="meta-label">QUESTS CLEARED</span>
+                        <span class="meta-value">284K+</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- PLAYER HUD -->
+
+            <div class="hero-visual reveal">
+
+                <div class="hud-glow"></div>
+
+                <div class="player-card">
+
+                    <div class="hud-corners"></div>
+
+                    <div class="card-top">
+                        <div>
+                            <span class="small-label">PLAYER IDENTIFICATION</span>
+                            <h3>SHIN_HUNTER_01</h3>
+                        </div>
+
+                        <div class="rank-display">
+                            <span>RANK</span>
+                            <strong>E</strong>
+                        </div>
+                    </div>
+
+                    <div class="rank-evolution">
+                        <span>E-RANK</span>
+                        <div class="rank-line">
+                            <div class="rank-progress"></div>
+                        </div>
+                        <span>S-RANK</span>
+                    </div>
+
+                    <!-- HP -->
+                    <div class="resource">
+                        <div class="resource-header">
+                            <span>
+                                <i class="resource-icon hp">HP</i>
+                                HEALTH
+                            </span>
+                            <strong>8,420 / 10,000</strong>
+                        </div>
+
+                        <div class="resource-bar">
+                            <div
+                                class="resource-fill hp-fill"
+                                data-width="84%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MP -->
+                    <div class="resource">
+                        <div class="resource-header">
+                            <span>
+                                <i class="resource-icon mp">MP</i>
+                                MANA
+                            </span>
+                            <strong>6,210 / 8,000</strong>
+                        </div>
+
+                        <div class="resource-bar">
+                            <div
+                                class="resource-fill mp-fill"
+                                data-width="78%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- XP -->
+                    <div class="resource">
+                        <div class="resource-header">
+                            <span>
+                                <i class="resource-icon xp">XP</i>
+                                EXPERIENCE
+                            </span>
+                            <strong>7,840 / 10,000</strong>
+                        </div>
+
+                        <div class="resource-bar xp-bar">
+                            <div
+                                class="resource-fill xp-fill"
+                                data-width="78%">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="stats-header">
+                        <span>CORE ATTRIBUTES</span>
+                        <span>LEVEL 42</span>
+                    </div>
+
+                    <div class="stat-grid">
+
+                        <div class="stat">
+                            <span>STR</span>
+                            <strong>42</strong>
+                            <div class="micro-bar">
+                                <i style="width: 70%"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <span>AGI</span>
+                            <strong>38</strong>
+                            <div class="micro-bar">
+                                <i style="width: 63%"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <span>INT</span>
+                            <strong>55</strong>
+                            <div class="micro-bar">
+                                <i style="width: 84%"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <span>VIT</span>
+                            <strong>40</strong>
+                            <div class="micro-bar">
+                                <i style="width: 66%"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <span>WIL</span>
+                            <strong>60</strong>
+                            <div class="micro-bar">
+                                <i style="width: 92%"></i>
+                            </div>
+                        </div>
+
+                        <div class="stat locked">
+                            <span>???</span>
+                            <strong>--</strong>
+                            <div class="micro-bar"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-footer">
+
+                        <div>
+                            <span class="small-label">NEXT QUEST</span>
+                            <strong>DISCIPLINE PROTOCOL</strong>
+                        </div>
+
+                        <div class="quest-status">
+                            <span class="pulse"></span>
+                            ACTIVE
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="floating-xp">
+                    <span>+250 XP</span>
+                    <small>QUEST CLEARED</small>
+                </div>
+
+                <div class="floating-rank">
+                    <span>↑</span>
+                    RANK PROGRESS
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MARQUEE
+        ====================================================== -->
+
+        <div class="system-marquee">
+            <div class="marquee-track">
+                <span>DISCIPLINE</span>
+                <b>◆</b>
+                <span>CONSISTENCY</span>
+                <b>◆</b>
+                <span>PROGRESSION</span>
+                <b>◆</b>
+                <span>DISCIPLINE</span>
+                <b>◆</b>
+                <span>CONSISTENCY</span>
+                <b>◆</b>
+                <span>PROGRESSION</span>
+                <b>◆</b>
+            </div>
+        </div>
+
+
+        <!-- =====================================================
+             PROBLEM VS SYSTEM
+        ====================================================== -->
+
+        <section class="comparison section" id="system">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">01 // SYSTEM AWAKENING</span>
+
+                <h2>
+                    YOUR OLD LIFE
+                    <span>WAS NEVER THE PROBLEM.</span>
+                </h2>
+
+                <p>
+                    The problem was never your potential.
+                    It was the absence of a system designed to reveal it.
+                </p>
+
+            </div>
+
+
+            <div class="comparison-grid">
+
+                <!-- REALITY -->
+
+                <div class="comparison-card reality reveal">
+
+                    <div class="card-label danger">
+                        <span class="status-dot red"></span>
+                        THE UNAWAKENED REALITY
+                    </div>
+
+                    <h3>
+                        WORK HARD.
+                        <br>
+                        <span>SEE NOTHING.</span>
+                    </h3>
+
+                    <p>
+                        You're putting in effort, but there is no visible
+                        progression bar telling you how far you've come.
+                    </p>
+
+                    <div class="problem-list">
+
+                        <div>
+                            <span>01</span>
+                            <strong>LOW VISIBILITY</strong>
+                            <small>Progress feels invisible.</small>
+                        </div>
+
+                        <div>
+                            <span>02</span>
+                            <strong>SLOW FEEDBACK</strong>
+                            <small>Results take weeks to notice.</small>
+                        </div>
+
+                        <div>
+                            <span>03</span>
+                            <strong>LOST MOTIVATION</strong>
+                            <small>Nothing makes consistency exciting.</small>
+                        </div>
+
+                        <div>
+                            <span>04</span>
+                            <strong>PLAIN ROUTINE</strong>
+                            <small>Every day feels exactly the same.</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ASCND -->
+
+                <div class="comparison-card system reveal">
+
+                    <div class="card-label cyan">
+                        <span class="status-dot"></span>
+                        THE ASCND SYSTEM
+                    </div>
+
+                    <h3>
+                        EVERY ACTION
+                        <br>
+                        <span>COUNTS.</span>
+                    </h3>
+
+                    <p>
+                        ASCND turns invisible personal growth into a visible,
+                        measurable progression system.
+                    </p>
+
+                    <div class="system-list">
+
+                        <div>
+                            <span class="check">✓</span>
+                            <div>
+                                <strong>IMMEDIATE XP FEEDBACK</strong>
+                                <small>Every completed action earns progress.</small>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="check">✓</span>
+                            <div>
+                                <strong>GAMIFIED LOOPS</strong>
+                                <small>Turn consistency into momentum.</small>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="check">✓</span>
+                            <div>
+                                <strong>BOSS RAIDS</strong>
+                                <small>Turn massive goals into epic milestones.</small>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="check">✓</span>
+                            <div>
+                                <strong>TANGIBLE STATS</strong>
+                                <small>Watch your real-life attributes evolve.</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CORE MECHANICS
+        ====================================================== -->
+
+        <section class="mechanics section" id="mechanics">
+
+            <div class="section-heading centered reveal">
+
+                <span class="section-number">02 // SYSTEM MECHANICS</span>
+
+                <h2>
+                    YOUR LIFE.
+                    <span>NOW PLAYABLE.</span>
+                </h2>
+
+                <p>
+                    Four systems designed to make personal development
+                    feel like progression instead of punishment.
+                </p>
+
+            </div>
+
+
+            <div class="mechanics-layout">
+
+                <div class="mechanic-tabs">
+
+                    <button class="mechanic-tab active" data-mechanic="quests">
+                        <span class="tab-number">01</span>
+                        <span class="tab-icon">⚔</span>
+                        <span>
+                            <strong>QUEST LOG</strong>
+                            <small>Daily missions</small>
+                        </span>
+                        <span class="tab-arrow">→</span>
+                    </button>
+
+                    <button class="mechanic-tab" data-mechanic="stats">
+                        <span class="tab-number">02</span>
+                        <span class="tab-icon">◈</span>
+                        <span>
+                            <strong>STAT ALLOCATION</strong>
+                            <small>Grow attributes</small>
+                        </span>
+                        <span class="tab-arrow">→</span>
+                    </button>
+
+                    <button class="mechanic-tab" data-mechanic="boss">
+                        <span class="tab-number">03</span>
+                        <span class="tab-icon">♜</span>
+                        <span>
+                            <strong>BOSS RAIDS</strong>
+                            <small>Milestones</small>
+                        </span>
+                        <span class="tab-arrow">→</span>
+                    </button>
+
+                    <button class="mechanic-tab" data-mechanic="shadow">
+                        <span class="tab-number">04</span>
+                        <span class="tab-icon">✦</span>
+                        <span>
+                            <strong>RANK CLEARANCE</strong>
+                            <small>Prestige system</small>
+                        </span>
+                        <span class="tab-arrow">→</span>
+                    </button>
+
+                </div>
+
+
+                <div class="mechanic-display">
+
+                    <!-- QUEST -->
+
+                    <div class="mechanic-panel active" data-panel="quests">
+
+                        <div class="panel-icon">⚔</div>
+
+                        <span class="panel-kicker">QUEST SYSTEM</span>
+
+                        <h3>
+                            YOUR DAY
+                            <br>
+                            BECOMES A <span>QUEST LOG.</span>
+                        </h3>
+
+                        <p>
+                            Daily routines automatically become quests.
+                            Complete them to earn XP, maintain streaks,
+                            and unlock harder missions.
+                        </p>
+
+                        <div class="quest-preview">
+
+                            <div class="quest-item">
+                                <span class="quest-rank e">E</span>
+                                <div>
+                                    <strong>10 MIN MEDITATION</strong>
+                                    <small>+50 XP · +2 WIL</small>
+                                </div>
+                                <span class="quest-check">✓</span>
+                            </div>
+
+                            <div class="quest-item">
+                                <span class="quest-rank c">C</span>
+                                <div>
+                                    <strong>WORKOUT SESSION</strong>
+                                    <small>+150 XP · +4 STR</small>
+                                </div>
+                                <span class="quest-check">✓</span>
+                            </div>
+
+                            <div class="quest-item">
+                                <span class="quest-rank s">S</span>
+                                <div>
+                                    <strong>DEEP WORK · 4 HOURS</strong>
+                                    <small>+500 XP · +5 INT</small>
+                                </div>
+                                <span class="quest-check pending">○</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATS -->
+
+                    <div class="mechanic-panel" data-panel="stats">
+
+                        <div class="panel-icon">◈</div>
+
+                        <span class="panel-kicker">STAT SYSTEM</span>
+
+                        <h3>
+                            EVERY HABIT
+                            <br>
+                            BUILDS A <span>STAT.</span>
+                        </h3>
+
+                        <p>
+                            ASCND maps real-world actions to meaningful
+                            attributes, allowing your character to evolve
+                            based on what you actually do.
+                        </p>
+
+                        <div class="stat-mapping-preview">
+
+                            <div>
+                                <span>🏋</span>
+                                <strong>GYM</strong>
+                                <em>+STR +VIT</em>
+                            </div>
+
+                            <div>
+                                <span>📚</span>
+                                <strong>READING</strong>
+                                <em>+INT</em>
+                            </div>
+
+                            <div>
+                                <span>🧘</span>
+                                <strong>MEDITATION</strong>
+                                <em>+WIL</em>
+                            </div>
+
+                            <div>
+                                <span>🏃</span>
+                                <strong>RUNNING</strong>
+                                <em>+AGI +VIT</em>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOSS -->
+
+                    <div class="mechanic-panel" data-panel="boss">
+
+                        <div class="panel-icon">♜</div>
+
+                        <span class="panel-kicker">BOSS RAID SYSTEM</span>
+
+                        <h3>
+                            BIG GOALS NEED
+                            <br>
+                            <span>A RAID PARTY.</span>
+                        </h3>
+
+                        <p>
+                            Gather your friends and tackle long-term
+                            challenges together. Thirty days. One objective.
+                            Zero excuses.
+                        </p>
+
+                        <div class="raid-preview">
+
+                            <div class="raid-header">
+                                <span>30 DAY DUNGEON</span>
+                                <strong>DAY 17 / 30</strong>
+                            </div>
+
+                            <div class="raid-progress">
+                                <i style="width: 57%"></i>
+                            </div>
+
+                            <div class="raid-party">
+                                <span>HUNTER PARTY</span>
+
+                                <div class="avatars">
+                                    <i>AK</i>
+                                    <i>JS</i>
+                                    <i>MR</i>
+                                    <i>+</i>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHADOW -->
+
+                    <div class="mechanic-panel" data-panel="shadow">
+
+                        <div class="panel-icon">✦</div>
+
+                        <span class="panel-kicker">RANK CLEARANCE</span>
+
+                        <h3>
+                            DISCIPLINE
+                            <br>
+                            BECOMES <span>PRESTIGE.</span>
+                        </h3>
+
+                        <p>
+                            Build enough consistency to unlock titles,
+                            ranks, achievements and increasingly difficult
+                            challenges.
+                        </p>
+
+                        <div class="rank-preview">
+
+                            <div class="rank-tier cleared">
+                                <span>E</span>
+                                <small>INITIATE</small>
+                                <b>✓</b>
+                            </div>
+
+                            <div class="rank-tier cleared">
+                                <span>D</span>
+                                <small>AWAKENED</small>
+                                <b>✓</b>
+                            </div>
+
+                            <div class="rank-tier active">
+                                <span>C</span>
+                                <small>HUNTER</small>
+                                <b>●</b>
+                            </div>
+
+                            <div class="rank-tier">
+                                <span>B</span>
+                                <small>ELITE</small>
+                            </div>
+
+                            <div class="rank-tier">
+                                <span>A</span>
+                                <small>MASTER</small>
+                            </div>
+
+                            <div class="rank-tier">
+                                <span>S</span>
+                                <small>MONARCH</small>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             REAL LIFE STAT MAPPER
+        ====================================================== -->
+
+        <section class="stat-section section" id="stats">
+
+            <div class="section-heading reveal">
+
+                <span class="section-number">03 // ATTRIBUTE ENGINE</span>
+
+                <h2>
+                    WHAT YOU DO
+                    <span>CHANGES WHO YOU ARE.</span>
+                </h2>
+
+                <p>
+                    Your real-world actions become measurable character
+                    development.
+                </p>
+
+            </div>
+
+
+            <div class="mapper-grid">
+
+                <div class="mapper-card reveal">
+
+                    <div class="mapper-icon">STR</div>
+
+                    <div class="mapper-content">
+                        <div class="mapper-top">
+                            <strong>STRENGTH</strong>
+                            <span>LV. 42</span>
+                        </div>
+
+                        <p>
+                            Weight training, push-ups, combat sports,
+                            physical challenges.
+                        </p>
+
+                        <div class="mapper-bar">
+                            <i style="width: 72%"></i>
+                        </div>
+
+                        <div class="mapper-footer">
+                            <span>+4 THIS WEEK</span>
+                            <span>72%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="mapper-card reveal">
+
+                    <div class="mapper-icon purple">INT</div>
+
+                    <div class="mapper-content">
+                        <div class="mapper-top">
+                            <strong>INTELLIGENCE</strong>
+                            <span>LV. 55</span>
+                        </div>
+
+                        <p>
+                            Reading, deep work, studying, learning new skills.
+                        </p>
+
+                        <div class="mapper-bar">
+                            <i style="width: 87%"></i>
+                        </div>
+
+                        <div class="mapper-footer">
+                            <span>+7 THIS WEEK</span>
+                            <span>87%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="mapper-card reveal">
+
+                    <div class="mapper-icon blue">VIT</div>
+
+                    <div class="mapper-content">
+                        <div class="mapper-top">
+                            <strong>VITALITY</strong>
+                            <span>LV. 40</span>
+                        </div>
+
+                        <p>
+                            Sleep, nutrition, cardio, hydration and recovery.
+                        </p>
+
+                        <div class="mapper-bar">
+                            <i style="width: 66%"></i>
+                        </div>
+
+                        <div class="mapper-footer">
+                            <span>+3 THIS WEEK</span>
+                            <span>66%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="mapper-card reveal">
+
+                    <div class="mapper-icon cyan">WIL</div>
+
+                    <div class="mapper-content">
+                        <div class="mapper-top">
+                            <strong>WILLPOWER</strong>
+                            <span>LV. 60</span>
+                        </div>
+
+                        <p>
+                            Meditation, cold exposure, discipline and
+                            difficult choices.
+                        </p>
+
+                        <div class="mapper-bar">
+                            <i style="width: 94%"></i>
+                        </div>
+
+                        <div class="mapper-footer">
+                            <span>+12 THIS WEEK</span>
+                            <span>94%</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SYSTEM LOGS / TESTIMONIALS
+        ====================================================== -->
+
+        <section class="reports section" id="reports">
+
+            <div class="section-heading centered reveal">
+
+                <span class="section-number">04 // HUNTER STATUS REPORTS</span>
+
+                <h2>
+                    THE SYSTEM
+                    <span>DOESN'T LIE.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="reports-wrapper">
+
+                <button class="carousel-btn prev" id="prevReport">
+                    ←
+                </button>
+
+                <div class="report-window">
+
+                    <div class="reports-track" id="reportsTrack">
+
+                        <article class="report-card">
+
+                            <div class="report-top">
+                                <span>STATUS REPORT #001</span>
+                                <span class="report-time">09:42:17</span>
+                            </div>
+
+                            <div class="report-message">
+                                <span class="quote">"</span>
+
+                                Cleared 90-day cold shower dungeon.
+                                Willpower increased dramatically.
+                                <strong>Willpower +25.</strong>
+
+                                <span class="quote end">"</span>
+                            </div>
+
+                            <div class="report-author">
+                                <div class="hunter-avatar">AK</div>
+
+                                <div>
+                                    <strong>Hunter Alex K.</strong>
+                                    <span>RANK A // NORTH SECTOR</span>
+                                </div>
+                            </div>
+
+                        </article>
+
+
+                        <article class="report-card">
+
+                            <div class="report-top">
+                                <span>STATUS REPORT #002</span>
+                                <span class="report-time">14:21:04</span>
+                            </div>
+
+                            <div class="report-message">
+                                <span class="quote">"</span>
+
+                                I stopped tracking whether I felt motivated.
+                                I just checked the quest log and completed it.
+                                <strong>47 day streak.</strong>
+
+                                <span class="quote end">"</span>
+                            </div>
+
+                            <div class="report-author">
+                                <div class="hunter-avatar">JM</div>
+
+                                <div>
+                                    <strong>Hunter J. Malik</strong>
+                                    <span>RANK B // EAST SECTOR</span>
+                                </div>
+                            </div>
+
+                        </article>
+
+
+                        <article class="report-card">
+
+                            <div class="report-top">
+                                <span>STATUS REPORT #003</span>
+                                <span class="report-time">21:07:38</span>
+                            </div>
+
+                            <div class="report-message">
+                                <span class="quote">"</span>
+
+                                30 days ago I couldn't stay consistent
+                                for a week. Now my dashboard makes me
+                                <strong>want to level up.</strong>
+
+                                <span class="quote end">"</span>
+                            </div>
+
+                            <div class="report-author">
+                                <div class="hunter-avatar">SR</div>
+
+                                <div>
+                                    <strong>Hunter Sarah R.</strong>
+                                    <span>RANK A // WEST SECTOR</span>
+                                </div>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <button class="carousel-btn next" id="nextReport">
+                    →
+                </button>
+
+            </div>
+
+            <div class="carousel-dots" id="carouselDots">
+                <button class="active"></button>
+                <button></button>
+                <button></button>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FINAL CTA
+        ====================================================== -->
+
+        <section class="awakening section" id="awakening">
+
+            <div class="awakening-grid"></div>
+            <div class="awakening-glow"></div>
+
+            <div class="awakening-content reveal">
+
+                <div class="system-badge">
+                    <span class="status-dot"></span>
+                    SYSTEM AWAITING USER
+                </div>
+
+                <span class="section-number">
+                    05 // FINAL CLEARANCE
+                </span>
+
+                <h2>
+                    THE SYSTEM
+                    <br>
+                    HAS <span>CHOSEN YOU.</span>
+                </h2>
+
+                <p>
+                    Will you answer the call?
+                </p>
+
+                <form class="waitlist-form" id="waitlistForm">
+
+                    <div class="input-wrapper">
+
+                        <span class="input-prefix">&gt;_</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="ENTER YOUR EMAIL"
+                            required
+                            autocomplete="email"
+                        />
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        CLAIM HUNTER KEY
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+                <div class="form-message" id="formMessage"></div>
+
+                <div class="awakening-meta">
+                    <span>NO CREDIT CARD</span>
+                    <i></i>
+                    <span>EARLY ACCESS</span>
+                    <i></i>
+                    <span>HUNTER KEY REQUIRED</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo">
+                    <span class="logo-bracket">[</span>
+                    ASCND
+                    <span class="logo-bracket">]</span>
+                </a>
+
+                <p>
+                    Your real life is the game.
+                    <br>
+                    Become the protagonist.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <div>
+                    <span>SYSTEM</span>
+                    <a href="#mechanics">Mechanics</a>
+                    <a href="#stats">Attributes</a>
+                    <a href="#reports">Hunters</a>
+                </div>
+
+                <div>
+                    <span>CONNECT</span>
+                    <a href="#">Discord</a>
+                    <a href="#">Twitter / X</a>
+                    <a href="#">Instagram</a>
+                </div>
+
+                <div>
+                    <span>LEGAL</span>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 ASCND SYSTEMS</span>
+            <span>SYSTEM STATUS: <strong>OPERATIONAL</strong></span>
+            <span>BUILD 2.0.1</span>
+        </div>
+
+    </footer>
+
+</div>
+
+{% endblock %}

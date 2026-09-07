@@ -1,0 +1,51 @@
+import os
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
+class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+
+    if not SECRET_KEY:
+        raise RuntimeError(
+            "SECRET_KEY environment variable is required."
+        )
+
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
+    if not DATABASE_URL:
+        raise RuntimeError(
+            "DATABASE_URL environment variable is required."
+        )
+
+    DEBUG = os.getenv("DEBUG", "0") == "1"
+
+    HOST = os.getenv(
+        "HOST",
+        "127.0.0.1"
+    )
+
+    PORT = int(
+        os.getenv(
+            "PORT",
+            "5000"
+        )
+    )
+
+    AUTO_INIT_DB = os.getenv(
+        "AUTO_INIT_DB",
+        "0"
+    ) == "1"
+
+    SESSION_COOKIE_HTTPONLY = True
+
+    SESSION_COOKIE_SAMESITE = "Lax"
+
+    SESSION_COOKIE_SECURE = (
+        os.getenv("SESSION_COOKIE_SECURE", "0") == "1"
+    )
+
+    MAX_CONTENT_LENGTH = 2 * 1024 * 1024
