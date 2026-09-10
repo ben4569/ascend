@@ -1,20 +1,18 @@
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import BentoFeatures from "./components/BentoFeatures";
+import CompassAI from "./components/CompassAI";
+import type { JSX } from "react/jsx-runtime";
 
-import Navbar from "./components/navbar";
-
-function App() {
+export default function App(): JSX.Element {
   return (
-    <div className="min-h-screen bg-[#090D16] text-white">
+    <div className="min-h-screen bg-slate-950">
       <Navbar />
-
-      <main className="pt-20">
-        <section className="flex min-h-[80vh] items-center justify-center">
-          <h1 className="text-6xl font-bold">
-            ASCEND
-          </h1>
-        </section>
+      <main>
+        <Hero />
+        <BentoFeatures />
+        <CompassAI />
       </main>
     </div>
   );
 }
-
-export default App;
