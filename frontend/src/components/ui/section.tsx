@@ -9,12 +9,13 @@ type SectionProps = {
   className?: string;
 };
 
+
 export function Section({ id, labelledBy, children, className }: SectionProps): JSX.Element {
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
-      className={cn("relative overflow-hidden py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-16 md:py-20", className)}
     >
       <div className="relative mx-auto max-w-7xl px-6">{children}</div>
     </section>
@@ -26,16 +27,34 @@ type RevealProps = {
   delay?: number;
   className?: string;
 };
-
-export function Reveal({ children, delay = 0, className }: RevealProps): JSX.Element {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+}: RevealProps): JSX.Element {
   const reduce = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={{
+        opacity: 0,
+        y: reduce ? 0 : 18,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.15,
+        margin: "0px 0px -60px 0px",
+      }}
+      transition={{
+        duration: 0.65,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
       {children}
     </motion.div>
