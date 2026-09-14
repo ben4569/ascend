@@ -22,9 +22,9 @@ def create_app():
     configure_logging(app)
 
     @app.get("/")
+    @app.get("/signup")
     def index():
         return render_template("index.html")
-
     @app.get("/health")
     def health():
         return {

@@ -106,7 +106,7 @@ export default function Hero(): JSX.Element {
             className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <a
-              href="#signup"
+              href="/signup"
               className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 px-6 py-3.5 text-sm font-semibold text-white shadow-xl shadow-violet-950/60 transition-all duration-150 hover:-translate-y-0.5 hover:bg-violet-500 active:scale-[0.98] sm:w-auto"
             >
               Start Your Ascension

@@ -1,7 +1,10 @@
 import { lazy, Suspense, type JSX } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
+import Signup from "./pages/Signup";
 
 const BentoFeatures = lazy(
   () => import("./components/BentoFeatures")
@@ -32,16 +35,14 @@ function SectionLoader(): JSX.Element {
   );
 }
 
-export default function App(): JSX.Element {
+function LandingPage(): JSX.Element {
   return (
     <div className="min-h-screen bg-slate-950">
       <Navbar />
 
       <main>
-        {/* Above the fold */}
         <Hero />
 
-        {/* Below the fold */}
         <section
           className="min-h-[400px]"
           aria-label="Features"
@@ -68,15 +69,17 @@ export default function App(): JSX.Element {
             <CompassAI />
           </Suspense>
         </section>
+
         <section
           className="min-h-[400px]"
-          aria-label="why-ascnd"
+          aria-label="Why Ascend"
         >
           <Suspense fallback={<SectionLoader />}>
             <WhyAscnd />
           </Suspense>
         </section>
-        <section 
+
+        <section
           className="min-h-[400px]"
           aria-label="Final call to action"
         >
@@ -85,7 +88,19 @@ export default function App(): JSX.Element {
           </Suspense>
         </section>
       </main>
-    <Footer />
-  </div>
+
+      <Footer />
+    </div>
+  );
+}
+
+export default function App(): JSX.Element {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

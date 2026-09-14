@@ -117,7 +117,7 @@ export default function CompassAI(): JSX.Element {
             </ul>
 
             <motion.a
-              href="#signup"
+              href="/signup"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.15 }}

@@ -94,7 +94,7 @@ export default function Navbar(): JSX.Element {
             Log in
           </motion.a>
           <motion.a
-            href="#signup"
+            href="/signup"
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.15 }}
@@ -152,7 +152,7 @@ export default function Navbar(): JSX.Element {
                   Log in
                 </a>
                 <a
-                  href="#signup"
+                  href="/signup"
                   onClick={() => setOpen(false)}
                   className="rounded-xl bg-violet-600 px-4 py-3 text-center text-sm font-semibold text-white"
                 >
