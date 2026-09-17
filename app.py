@@ -5,7 +5,7 @@ from flask import Flask, render_template, send_from_directory
 from config import Config
 from database.db import init_db
 from utils.logging_config import configure_logging
-
+from routes.auth import auth_bp , oauth
 
 FRONTEND_DIST = Path(__file__).resolve().parent / "frontend" / "dist"
 
@@ -18,7 +18,8 @@ def create_app():
         template_folder=str(FRONTEND_DIST),
     )
     app.config.from_object(Config)
-
+    oauth.init_app(app)
+    app.register_blueprint(auth_bp, url_prefix="/auth")
     configure_logging(app)
 
     @app.get("/")

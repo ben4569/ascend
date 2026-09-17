@@ -15,9 +15,17 @@ export default function Signup(): JSX.Element {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Server-side field errors
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  // Unexpected/server-level errors
+  const [formError, setFormError] = useState("");
 
   /*
    * ---------------------------------------------------------
@@ -109,7 +117,7 @@ export default function Signup(): JSX.Element {
       };
     }
 
-    if (!/[!@#$%^&*(),.?":{}|<>_\-\\[\]/;'`~+=]/.test(password)) {
+    if (!/[!@#$%^&*(),.?":{}|<>\_\-\\[\]/;'`~+=]/.test(password)) {
       return {
         text: "Add a special character",
         valid: false,
@@ -125,7 +133,6 @@ export default function Signup(): JSX.Element {
   })();
 
   const passwordValid = passwordMessage.valid;
-
   const isValid = emailValid && passwordValid;
 
   /*
@@ -134,7 +141,9 @@ export default function Signup(): JSX.Element {
    * ---------------------------------------------------------
    */
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> {
     event.preventDefault();
 
     if (!isValid || loading) {
@@ -144,16 +153,100 @@ export default function Signup(): JSX.Element {
     setLoading(true);
     setSubmitted(false);
 
-    /*
-     * Temporary frontend simulation.
-     *
-     * This will later be replaced with:
-     * POST /api/auth/signup
-     */
-    setTimeout(() => {
-      setLoading(false);
+    // Clear previous server errors before a new request.
+    setEmailError("");
+    setPasswordError("");
+    setFormError("");
+
+    try {
+      const response = await fetch("/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          email: email.trim(),
+          password,
+        }),
+      });
+
+      const text = await response.text();
+
+      let data: {
+        error?: string;
+        message?: string;
+      } = {};
+
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          throw new Error(
+            `Server returned invalid response (${response.status})`
+          );
+        }
+      }
+
+      if (!response.ok) {
+        console.error("Signup API error:", {
+          status: response.status,
+          response: data,
+        });
+
+        const message =
+          data.error ||
+          `Unable to create your account (${response.status})`;
+
+        /*
+         * -----------------------------------------------------
+         * Map backend validation errors to the correct field.
+         * -----------------------------------------------------
+         */
+
+        const normalizedMessage = message.toLowerCase();
+
+        if (
+          normalizedMessage.includes("email") ||
+          normalizedMessage.includes("account already exists") ||
+          normalizedMessage.includes("account with this email")
+        ) {
+          setEmailError(message);
+        } else if (
+          normalizedMessage.includes("password") ||
+          normalizedMessage.includes("uppercase") ||
+          normalizedMessage.includes("number") ||
+          normalizedMessage.includes("special character") ||
+          normalizedMessage.includes("spaces")
+        ) {
+          setPasswordError(message);
+        } else {
+          setFormError(message);
+        }
+
+        return;
+      }
+
+      /*
+       * Successful signup.
+       *
+       * Backend creates the account and sends the verification
+       * email. We keep the button in its success state for now.
+       */
+
       setSubmitted(true);
-    }, 800);
+    } catch (error) {
+      console.error("Signup failed:", error);
+
+      setFormError(
+        error instanceof Error
+          ? error.message
+          : "Unable to create your account"
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   /*
@@ -162,8 +255,13 @@ export default function Signup(): JSX.Element {
    * ---------------------------------------------------------
    */
 
-  function handleSocial(provider: "Google" | "Apple"): void {
-    console.log(`${provider} signup requested`);
+  function handleSocial(provider: "google" | "apple"): void {
+    if (provider === "google") {
+      window.location.href = "/auth/google";
+      return;
+    }
+
+    console.log("Apple signup requested");
   }
 
   return (
@@ -238,6 +336,30 @@ export default function Signup(): JSX.Element {
           "
         >
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Form-level error */}
+            {formError && (
+              <motion.div
+                initial={
+                  reduceMotion
+                    ? undefined
+                    : { opacity: 0, y: -6 }
+                }
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : { opacity: 1, y: 0 }
+                }
+                role="alert"
+                className="
+                  rounded-lg border border-red-500/20
+                  bg-red-500/10 px-3.5 py-3
+                  text-sm leading-5 text-red-300
+                "
+              >
+                {formError}
+              </motion.div>
+            )}
+
             {/* Email */}
             <div>
               <label
@@ -254,6 +376,8 @@ export default function Signup(): JSX.Element {
                 value={email}
                 onChange={(event) => {
                   setEmail(event.target.value);
+                  setEmailError("");
+                  setFormError("");
                   setSubmitted(false);
                 }}
                 autoComplete="email"
@@ -261,17 +385,19 @@ export default function Signup(): JSX.Element {
                 spellCheck={false}
                 placeholder="you@example.com"
                 aria-invalid={
-                  email.length > 0 && !emailValid
+                  Boolean(emailError) ||
+                  (email.length > 0 && !emailValid)
                 }
+                aria-describedby="email-message"
                 className={`
                   w-full rounded-lg border
                   bg-slate-950/70 px-3.5 py-3
                   text-sm text-slate-100
                   placeholder:text-slate-600
                   outline-none transition-all
-
                   ${
-                    email.length > 0 && !emailValid
+                    emailError ||
+                    (email.length > 0 && !emailValid)
                       ? "border-red-500/40 focus:border-red-500/60 focus:ring-2 focus:ring-red-500/10"
                       : emailValid
                         ? "border-emerald-500/30 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10"
@@ -281,7 +407,8 @@ export default function Signup(): JSX.Element {
               />
 
               <motion.p
-                key={emailMessage.text}
+                id="email-message"
+                key={emailError || emailMessage.text}
                 initial={
                   reduceMotion
                     ? undefined
@@ -295,16 +422,21 @@ export default function Signup(): JSX.Element {
                 className={`
                   mt-2 text-xs
                   ${
-                    emailMessage.valid
-                      ? "text-emerald-400"
-                      : emailMessage.neutral
-                        ? "text-slate-500"
-                        : "text-red-400"
+                    emailError
+                      ? "text-red-400"
+                      : emailMessage.valid
+                        ? "text-emerald-400"
+                        : emailMessage.neutral
+                          ? "text-slate-500"
+                          : "text-red-400"
                   }
                 `}
               >
-                {emailMessage.valid && "✓ "}
-                {emailMessage.text}
+                {emailError
+                  ? emailError
+                  : emailMessage.valid
+                    ? `✓ ${emailMessage.text}`
+                    : emailMessage.text}
               </motion.p>
             </div>
 
@@ -325,22 +457,26 @@ export default function Signup(): JSX.Element {
                   value={password}
                   onChange={(event) => {
                     setPassword(event.target.value);
+                    setPasswordError("");
+                    setFormError("");
                     setSubmitted(false);
                   }}
                   autoComplete="new-password"
                   placeholder="Create a password"
                   aria-invalid={
-                    password.length > 0 && !passwordValid
+                    Boolean(passwordError) ||
+                    (password.length > 0 && !passwordValid)
                   }
+                  aria-describedby="password-message"
                   className={`
                     w-full rounded-lg border
                     bg-slate-950/70 px-3.5 py-3 pr-11
                     text-sm text-slate-100
                     placeholder:text-slate-600
                     outline-none transition-all
-
                     ${
-                      password.length > 0 && !passwordValid
+                      passwordError ||
+                      (password.length > 0 && !passwordValid)
                         ? "border-red-500/40 focus:border-red-500/60 focus:ring-2 focus:ring-red-500/10"
                         : passwordValid
                           ? "border-emerald-500/30 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/10"
@@ -378,7 +514,8 @@ export default function Signup(): JSX.Element {
               </div>
 
               <motion.p
-                key={passwordMessage.text}
+                id="password-message"
+                key={passwordError || passwordMessage.text}
                 initial={
                   reduceMotion
                     ? undefined
@@ -392,16 +529,21 @@ export default function Signup(): JSX.Element {
                 className={`
                   mt-2 text-xs
                   ${
-                    passwordMessage.valid
-                      ? "text-emerald-400"
-                      : passwordMessage.neutral
-                        ? "text-slate-500"
-                        : "text-red-400"
+                    passwordError
+                      ? "text-red-400"
+                      : passwordMessage.valid
+                        ? "text-emerald-400"
+                        : passwordMessage.neutral
+                          ? "text-slate-500"
+                          : "text-red-400"
                   }
                 `}
               >
-                {passwordMessage.valid && "✓ "}
-                {passwordMessage.text}
+                {passwordError
+                  ? passwordError
+                  : passwordMessage.valid
+                    ? `✓ ${passwordMessage.text}`
+                    : passwordMessage.text}
               </motion.p>
             </div>
 
@@ -410,12 +552,18 @@ export default function Signup(): JSX.Element {
               type="submit"
               disabled={!isValid || loading || submitted}
               whileHover={
-                reduceMotion || !isValid || loading || submitted
+                reduceMotion ||
+                !isValid ||
+                loading ||
+                submitted
                   ? undefined
                   : { y: -1 }
               }
               whileTap={
-                reduceMotion || !isValid || loading || submitted
+                reduceMotion ||
+                !isValid ||
+                loading ||
+                submitted
                   ? undefined
                   : { scale: 0.985 }
               }
@@ -435,7 +583,7 @@ export default function Signup(): JSX.Element {
               {loading
                 ? "Creating account..."
                 : submitted
-                  ? "Account created"
+                  ? "Check your email"
                   : "Create account"}
 
               {!loading && !submitted && (
@@ -463,7 +611,7 @@ export default function Signup(): JSX.Element {
           <div className="flex justify-center gap-2.5">
             <SocialIconButton
               label="Continue with Google"
-              onClick={() => handleSocial("Google")}
+              onClick={() => handleSocial("google")}
             >
               <span className="text-base font-bold text-slate-100">
                 G
@@ -472,7 +620,7 @@ export default function Signup(): JSX.Element {
 
             <SocialIconButton
               label="Continue with Apple"
-              onClick={() => handleSocial("Apple")}
+              onClick={() => handleSocial("apple")}
             >
               <span className="text-lg leading-none text-slate-100">
                 
