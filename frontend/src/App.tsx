@@ -1,6 +1,6 @@
 import { lazy, Suspense, type JSX } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import VerifyEmail from "./pages/VerifyEmail";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
@@ -100,6 +100,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
     </BrowserRouter>
   );

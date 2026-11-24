@@ -9,10 +9,10 @@ import {
 } from "lucide-react";
 import { useState, type FormEvent, type JSX } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function Signup(): JSX.Element {
   const reduceMotion = useReducedMotion();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -188,45 +188,42 @@ export default function Signup(): JSX.Element {
           );
         }
       }
-
       if (!response.ok) {
-        console.error("Signup API error:", {
-          status: response.status,
-          response: data,
-        });
+  console.error("Signup API error:", {
+    status: response.status,
+    response: data,
+  });
 
-        const message =
-          data.error ||
-          `Unable to create your account (${response.status})`;
+  const message =
+    data.error ||
+    `Unable to create your account (${response.status})`;
 
-        /*
-         * -----------------------------------------------------
-         * Map backend validation errors to the correct field.
-         * -----------------------------------------------------
-         */
+  if (response.status === 409) {
+    setEmailError(message);
+  } else if (response.status === 400) {
+    const normalizedMessage = message.toLowerCase();
 
-        const normalizedMessage = message.toLowerCase();
+    if (
+      normalizedMessage.includes("email")
+    ) {
+      setEmailError(message);
+    } else if (
+      normalizedMessage.includes("password") ||
+      normalizedMessage.includes("uppercase") ||
+      normalizedMessage.includes("number") ||
+      normalizedMessage.includes("special character") ||
+      normalizedMessage.includes("spaces")
+    ) {
+      setPasswordError(message);
+    } else {
+      setFormError(message);
+    }
+  } else {
+    setFormError(message);
+  }
 
-        if (
-          normalizedMessage.includes("email") ||
-          normalizedMessage.includes("account already exists") ||
-          normalizedMessage.includes("account with this email")
-        ) {
-          setEmailError(message);
-        } else if (
-          normalizedMessage.includes("password") ||
-          normalizedMessage.includes("uppercase") ||
-          normalizedMessage.includes("number") ||
-          normalizedMessage.includes("special character") ||
-          normalizedMessage.includes("spaces")
-        ) {
-          setPasswordError(message);
-        } else {
-          setFormError(message);
-        }
-
-        return;
-      }
+  return;
+}
 
       /*
        * Successful signup.
@@ -235,7 +232,9 @@ export default function Signup(): JSX.Element {
        * email. We keep the button in its success state for now.
        */
 
-      setSubmitted(true);
+      navigate(
+        `/verify-email?email=${encodeURIComponent(email.trim())}`
+      );
     } catch (error) {
       console.error("Signup failed:", error);
 

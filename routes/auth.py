@@ -282,9 +282,8 @@ def verify_email():
     session["user_id"] = user_id
 
     return redirect(
-        "http://localhost:5174/onboarding"
+        "http://localhost:5174/verify-email?status=success"
     )
-
 
 # ============================================================
 # EMAIL / PASSWORD LOGIN
@@ -552,6 +551,145 @@ def google_callback():
 
     # We'll change this to the actual onboarding
     # route once that frontend route exists.
+    return redirect(
+        "http://localhost:5174/onboarding"
+    )
+
+@auth_bp.post("/resend-verification")
+def resend_verification():
+    data = request.get_json(silent=True) or {}
+
+    email = str(data.get("email", "")).strip().lower()
+
+    if not email or not EMAIL_PATTERN.fullmatch(email):
+        return jsonify({
+            "error": "Enter a valid email address"
+        }), 400
+
+    with db_cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT id, email_verified
+            FROM users
+            WHERE LOWER(email) = %s
+            """,
+            (email,),
+        )
+
+        user = cursor.fetchone()
+
+        # Don't reveal whether an account exists.
+        if not user:
+            return jsonify({
+                "message": (
+                    "If an account exists with this email, "
+                    "a verification email has been sent."
+                )
+            })
+
+        if user["email_verified"]:
+            return jsonify({
+                "message": (
+                    "If an account exists with this email, "
+                    "a verification email has been sent."
+                )
+            })
+
+        # Invalidate previous verification tokens.
+        cursor.execute(
+            """
+            UPDATE email_verification_tokens
+            SET used_at = NOW()
+            WHERE user_id = %s
+              AND used_at IS NULL
+            """,
+            (user["id"],),
+        )
+
+        token, token_hash = generate_verification_token()
+
+        expires_at = (
+            datetime.now(timezone.utc)
+            + timedelta(minutes=30)
+        )
+
+        cursor.execute(
+            """
+            INSERT INTO email_verification_tokens (
+                user_id,
+                token_hash,
+                expires_at
+            )
+            VALUES (%s, %s, %s)
+            """,
+            (user["id"], token_hash, expires_at),
+        )
+
+    send_verification_email(
+        email=email,
+        token=token,
+    )
+
+    return jsonify({
+        "message": "Verification email sent."
+    })
+
+    token_hash = hashlib.sha256(
+        token.encode("utf-8")
+    ).hexdigest()
+
+    with db_cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT id, user_id, expires_at, used_at
+            FROM email_verification_tokens
+            WHERE token_hash = %s
+            """,
+            (token_hash,),
+        )
+
+        verification = cursor.fetchone()
+
+        if not verification:
+            return redirect(
+                "http://localhost:5174/verify-email?status=invalid"
+            )
+
+        if verification["used_at"] is not None:
+            return redirect(
+                "http://localhost:5174/verify-email?status=used"
+            )
+
+        if verification["expires_at"] <= datetime.now(timezone.utc):
+            return redirect(
+                "http://localhost:5174/verify-email?status=expired"
+            )
+
+        cursor.execute(
+            """
+            UPDATE users
+            SET
+                email_verified = TRUE,
+                updated_at = NOW()
+            WHERE id = %s
+            """,
+            (verification["user_id"],),
+        )
+
+        cursor.execute(
+            """
+            UPDATE email_verification_tokens
+            SET used_at = NOW()
+            WHERE id = %s
+            """,
+            (verification["id"],),
+        )
+
+        user_id = verification["user_id"]
+
+    session.clear()
+    session["user_id"] = user_id
+
     return redirect(
         "http://localhost:5174/onboarding"
     )
